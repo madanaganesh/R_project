@@ -1,0 +1,340 @@
+---
+title       : Telecom Customer Churn Data
+subtitle    : Analysis on customer who'll be leaving the company.
+author      : Abinash Anand/Anne Grace/Madan Ganesh
+job         : PHASE--3 [1 - Transformation of Data , 2- EDA , 3 - Hypothesis]
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight  # {highlight.js, prettify, highlight}
+hitheme     : zenburn      # 
+widgets     : [mathjax, bootstrap, quiz,rmarkdown]   # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+
+---
+
+## Phase 1 -- Transformation and Description of Data
+
+<style>
+body {
+  background-color: #000;
+}
+.quiz-option label{
+  display: inline;
+  font-size: 1em;
+}
+ul.nav li::before { content: ""; }  
+ul.nav li{ font-size: 18px; line-height: 24px;}
+</style>
+
+```{r  warning=FALSE, message=FALSE, include=FALSE}
+## Including the required R packages.
+packages <- c('devtools','ggplot2','rmarkdown','sqldf', 'plotly', 'BSDA')
+if (length(setdiff(packages, rownames(installed.packages()))) > 0) {
+  install.packages(setdiff(packages, rownames(installed.packages())))  
+}
+## init Library
+library(ggplot2)
+library(sqldf)
+library(plotly)
+library(BSDA) ## z.test
+
+## Phases of the code
+#===================#
+# Phase 1 :
+# Set the current working dir
+# read the csv input file and check fir str() and summary() to understand the data
+# Trasnform the data, categorical varaibles are convereted into Factor
+setwd("C:/Users/Madan/Documents")
+
+## Data has header to it, so making the option for headr as TRUE
+raw_data <- read.csv("Telco Customer Churn.csv", stringsAsFactors = FALSE, header = TRUE)
+
+## Get insight about data
+str(raw_data) ## 7043 Records , Variables 21
+summary(raw_data)
+View(raw_data)
+
+```
+1. The dataset was retrieved from IBM website which is used for analyzing whether customer will retain with the company or not.
+2. The data frame consists of 7043 observations  of  21 variables.
+3. This data set provides info to help us predict behavior to retain customers and to develop customer retention programs.
+
+---
+
+## Phase 2 -- Exploratory Data Analysis
+### 1.Data split by Gender 
+1. Inference - Over all Female count (3488) > Male (3555)
+```{r, message=FALSE, warning=FALSE, echo=FALSE,fig.align='center',fig.height=5, fig.width = 10}
+gen_cnt <- table(raw_data$gender)
+gen_cnt
+## bar plot 
+barplot(gen_cnt, ## Input data
+        main = "Sample Bar Plot", xlab = "Gender", ylab = "Count",
+        col = colours()[2:6], ## adds colour
+        legend = rownames(gen_cnt) ## adds ledger
+        )
+```
+
+---
+
+### 2.Churn by Gender
+2. Inference - Churn rate is slightly high with Female Gender
+```{r, message=FALSE, warning=FALSE, echo=FALSE,fig.align='center',fig.height=5, fig.width = 10}
+gg=table(raw_data$gender,raw_data$Churn)
+gg
+par(mfrow=c(1,2))
+barplot(gg , main="Stack Bar Chart by Gender", xlab="Gender Split",col=c("pink","grey"),legend = rownames(gg))
+ggplot(raw_data,aes(x=gender,y=Churn, fill = Churn)) +  geom_bar(stat="identity")
+```
+
+---
+
+### 3.Churn by SeniorCitizen 
+1. Inference - Senior citizen Churn is comparitively less
+```{r, message=FALSE, warning=FALSE, echo=FALSE,fig.width=12,fig.height=3,fig.align="center",out.width="1500px"}
+sc_gg = table(raw_data$SeniorCitizen,raw_data$Churn)
+sc_gg
+par(mfrow=c(1,2))
+barplot(sc_gg , main="Stack Bar Chart by SeniorCitizen", xlab="Senior Citizen Split",col=c("salmon","grey"),legend = rownames(sc_gg))
+ggplot(raw_data,aes(x=SeniorCitizen,y=Churn, fill = Churn)) +  geom_bar(stat="identity")
+
+```
+
+---
+
+### 4.Churn because of InternetService
+1. Inference - Churn rate was high in Fiber Optic based Internet Connection
+```{r, message=FALSE, warning=FALSE, echo=FALSE,fig.align='center',fig.height=5, fig.width = 10}
+is_gg = table(raw_data$InternetService,raw_data$Churn)
+is_gg
+
+ggplot(data = raw_data, aes(x = InternetService  , fill = Churn)) +   geom_bar()
+
+```
+
+---
+
+### 5.Churn based on Contract type
+1. Inference -  Churn rate is high in Month-to-Month contarct and churn is less in Two years contract
+```{r, message=FALSE, warning=FALSE, echo=FALSE,fig.align='center',fig.height=5, fig.width = 10}
+con_gg = table(raw_data$Contract,raw_data$Churn)
+con_gg
+
+ggplot(data = raw_data, aes(x = Contract  , fill = Churn)) +   geom_bar()
+
+```
+
+---
+
+### 6.Churn based on Dependent status
+1. Inference - Churn on dependents status is less
+```{r, message=FALSE, warning=FALSE, echo=FALSE,fig.align='center',fig.height=5, fig.width = 10}
+sqldf('select Churn,count(*)  from raw_data  where Dependents = "Yes" group by Churn')
+```
+
+### 7.Average tenure of the customer when they are dependent
+1. Inference - Avergae Tenure of the customeris more when they have dependent 
+and for dependent yes and tenure average is 38
+```{r, message=FALSE, warning=FALSE, echo=FALSE,fig.align='center',fig.height=5, fig.width = 10}
+aa = aggregate(tenure ~ Dependents, data=raw_data, mean)
+aa
+```
+
+---
+
+### 8.Average tenure of a customer who's status of Partner  yes
+1. Inference - Highest tenure is marked AS 42.01764 when the partner status is yes
+```{r, message=FALSE, warning=FALSE, echo=FALSE,fig.align='center',fig.height=5, fig.width = 10}
+aa1 = aggregate(tenure ~ Partner, data=raw_data, mean)
+aa1
+ggplot(raw_data,aes(x=SeniorCitizen,y=Churn)) +  geom_bar(stat="identity")
+```
+
+---
+
+### 9.Churn vs Tenure
+1. Inference - As the tenure progresses customer who move out of the company are very less.
+```{r, message=FALSE, warning=FALSE, echo=FALSE,fig.align='center',fig.height=5, fig.width = 10}
+tc1 = table(raw_data$Churn,raw_data$tenure)
+ggplot(raw_data,aes(x=tenure,y=Churn, fill = Churn)) +  geom_bar(stat = "identity")
+
+```
+
+---
+
+### 10.Contract Vs Tenure
+1. Inference - As the tenure progresses customers migrates from monthly to Yearly contract.
+```{r, message=FALSE, warning=FALSE, echo=FALSE,fig.align='center',fig.height=5, fig.width = 10}
+ct1 = table(raw_data$Contract,raw_data$tenure)
+
+ggplot(raw_data,aes(x=tenure,y=Contract, fill = Contract)) +  geom_bar(stat = "identity")
+```
+
+---
+
+## Phase 3 - Hypothesis testing
+
+### Hypothesis 1            :   Tenure is longer if the partner status is yes
+1. Hypothesis test type    :   One Sample 1 sided t-test
+2. Alternate Hypothesis Ha :   Longer tenture if the partner status is yes
+3. Null Hypothesis         :   Partner status , plays no difference
+4. Since the P value is < 0.05, reject H0 and significant difference is there when the partner status is yes
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE, }
+ ii = raw_data[raw_data$Partner == 'Yes',][c(2,4,6,19,20)] ## filter the records for whi partner status = yes
+ t.test(ii$tenure,mu = 35,alternative = "greater", conf.level = 0.95)
+```
+
+---
+
+### Hypothesis 2            :   Tenure vs Gender
+1. Hypothesis test type    :   One Sample 2 sided t-test
+2. Alternate Hypothesis Ha :   Longer the tenture based on gender
+3. Null Hypossis           :   Gender makes no difference in Tenure
+4. Inference :  No difference in the tenture length because of the gender
+Since the P value is > 0.05, Cannot reject H0 and so there is no difference in tenure becuase of the gender
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE, }
+t.test(raw_data$tenure[raw_data$gender == "Female"],raw_data$tenure[raw_data$gender == "Male"], mu=0, alternative = "two.sided", conf=0.95,var.eq = FALSE,  paired = FALSE)
+```
+
+---
+
+### Hypothesis 3            :   Tenure is longer if the partner status is yes
+1. Hypothesis test type    :   One Sample 2 sided t-test
+2. Alternate Hypothesis Ha :   There is a difference in tenture becuase the partner status is yes
+3. Null Hypthesis          :   No difference in tenure because the partner status is Yes
+4. Inference :  p  value is very less than 0.05 alpha,  so reject H0 and accept Ha. There is a significant difference in the tenure because of the partner status is yes
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE, }
+t.test(raw_data$tenure[raw_data$Partner == "Yes"],raw_data$tenure[raw_data$Partner == "No"], mu=0, alternative = "two.sided", conf=0.95,var.eq = FALSE,  paired = FALSE)
+```
+
+---
+
+### Hypothesis 4            :   Average tenure of senior citizen is more than 30
+1. Hypothesis test type    :   One Sample 1 sided t-test
+2. Alternate Hypothesis Ha :   Tenure of senior citizen is more than 30
+3. Null Hypossis           :   Tenure of senior citizen is more not than 30
+4. Inference :  Mean of tenure is greater when the partner status is yes. Since the P value is < 0.05, reject H0 and significant difference is there when the partner status is yes
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE, }
+sc = raw_data[raw_data$SeniorCitizen == 1,][c(2,4,6,19,20)]
+t.test(sc$tenure,mu = 0,alternative = "greater", conf.level = 0.95)
+```
+
+---
+
+### Hypothesis 5            :   Churn based on gender
+1. Hypothesis test type    :   Chi square
+2. Alternate Hypothesis Ha :   Churn is based on gender
+3. Null Hypossis           :   Churn is not based on gender
+4. Inference :  P value > Alpha 0.05, Cannot reject H0, accpt H0.
+Churn is not gender based
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE, }
+ta = table(raw_data$gender,raw_data$Churn)
+chisq.test(ta)
+```
+
+---
+
+### Hypothesis 6            :   Churn based on Senior citizen status
+1. Hypothesis test type    :   Chi square
+2. Alternate Hypothesis Ha :   Churn is based on gender
+3. Null Hypossis           :   Churn is not base don gender
+4. Inference :  P value < Alpha 0.05,  reject H0, Accept  Ha  Churn based on senior citizen staus
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE, }
+snc = table(raw_data$SeniorCitizen,raw_data$Churn)
+chisq.test(snc)
+```
+
+---
+
+### Hypothesis 7            :   Churn based on streaming status
+1. Hypothesis test type    :   Chi square
+2. Alternate Hypothesis Ha :   Churn is based on streaming status
+3. Null Hypossis           :   Churn is not based on streaming status
+4. Inference :  P value < Alpha 0.05,  reject H0, Accept  Ha.Churn based on streaming  staus
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE, }
+tr = table(raw_data$StreamingTV,raw_data$Churn)
+chisq.test(tr)
+```
+
+---
+
+### Hypothesis 8            :   Churn based on StreamingMovies status
+1. Hypothesis test type    :   Chi square
+2. Alternate Hypothesis Ha :   Churn is based on StreamingMovies status
+3. Null Hypossis           :   Churn is not based on StreamingMovies status
+4. Inference :  P value < Alpha 0.05,  reject H0, Accept  Ha.Churn based on StreamingMovies  staus
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE, }
+tr1 = table(raw_data$StreamingMovies,raw_data$Churn)
+chisq.test(tr1)
+```
+
+---
+
+### Hypothesis 9            :   Monthly charges are varied based on gender
+1. Hypothesis test type    :   One Sample 2 sided t-test
+2. Alternate Hypothesis Ha :   Monthly charges varied based on gender
+3. Null Hypossis           :   Monthly charges not varied based on gender
+4. Inference :  No differenc ein the tenture length because of the gender.Since the P value is > 0.05,  cannot reject H0 and monthly charges are not varied based on gender so reject  Alternate hypothesis
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE, }
+t.test(raw_data$MonthlyCharges[raw_data$gender == "Female"],raw_data$MonthlyCharges[raw_data$gender == "Male"], mu=0, alternative = "two.sided", conf=0.95,var.eq = FALSE,  paired = FALSE)
+```
+
+---
+
+
+### Hypothesis 10           :   Churn is more because of Internet Service
+1. Alternate Hypothesis Ha :   Churn is based on Internet Service status
+2. Null Hypossis           :   Churn is not based on Internet Service status
+3. Hypothesis test type    :   Chi square
+4. Inference :  P value < Alpha 0.05,  reject H0, Accept  Ha. Churn based on Internet Service  status
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE, }
+tr11 = table(raw_data$InternetService,raw_data$Churn)
+chisq.test(tr11)
+```
+
+---
+## END
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

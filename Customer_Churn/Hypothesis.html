@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Telecom Customer Churn Data</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Telecom Customer Churn Data">
+  <meta name="author" content="Abinash Anand/Anne Grace/Madan Ganesh">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight/css/zenburn.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="libraries/widgets/bootstrap/css/bootstrap.css"></link>
+<link rel=stylesheet href="libraries/widgets/quiz/css/demo.css"></link>
+<link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Telecom Customer Churn Data</h1>
+    <h2>Analysis on customer who'll be leaving the company.</h2>
+    <p>Abinash Anand/Anne Grace/Madan Ganesh<br/>PHASE--3 [1 - Transformation of Data , 2- EDA , 3 - Hypothesis]</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Phase 1 -- Transformation and Description of Data</h2>
+  </hgroup>
+  <article data-timings="">
+    <style>
+body {
+  background-color: #000;
+}
+.quiz-option label{
+  display: inline;
+  font-size: 1em;
+}
+ul.nav li::before { content: ""; }  
+ul.nav li{ font-size: 18px; line-height: 24px;}
+</style>
+
+<ol>
+<li>The dataset was retrieved from IBM website which is used for analyzing whether customer will retain with the company or not.</li>
+<li>The data frame consists of 7043 observations  of  21 variables.</li>
+<li>This data set provides info to help us predict behavior to retain customers and to develop customer retention programs.</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Phase 2 -- Exploratory Data Analysis</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>1.Data split by Gender</h3>
+
+<ol>
+<li>Inference - Over all Female count (3488) &gt; Male (3555)</li>
+</ol>
+
+<pre><code>## 
+## Female   Male 
+##   3488   3555
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h3>2.Churn by Gender</h3>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Inference - Churn rate is slightly high with Female Gender</li>
+</ol>
+
+<pre><code>##         
+##            No  Yes
+##   Female 2549  939
+##   Male   2625  930
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h3>3.Churn by SeniorCitizen</h3>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Inference - Senior citizen Churn is comparitively less</li>
+</ol>
+
+<pre><code>##    
+##       No  Yes
+##   0 4508 1393
+##   1  666  476
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="1500px" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h3>4.Churn because of InternetService</h3>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Inference - Churn rate was high in Fiber Optic based Internet Connection</li>
+</ol>
+
+<pre><code>##              
+##                 No  Yes
+##   DSL         1962  459
+##   Fiber optic 1799 1297
+##   No          1413  113
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h3>5.Churn based on Contract type</h3>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Inference -  Churn rate is high in Month-to-Month contarct and churn is less in Two years contract</li>
+</ol>
+
+<pre><code>##                 
+##                    No  Yes
+##   Month-to-month 2220 1655
+##   One year       1307  166
+##   Two year       1647   48
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h3>6.Churn based on Dependent status</h3>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Inference - Churn on dependents status is less</li>
+</ol>
+
+<pre><code>##   Churn count(*)
+## 1    No     1784
+## 2   Yes      326
+</code></pre>
+
+<h3>7.Average tenure of the customer when they are dependent</h3>
+
+<ol>
+<li>Inference - Avergae Tenure of the customeris more when they have dependent 
+and for dependent yes and tenure average is 38</li>
+</ol>
+
+<pre><code>##   Dependents   tenure
+## 1         No 29.80600
+## 2        Yes 38.36825
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h3>8.Average tenure of a customer who&#39;s status of Partner  yes</h3>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Inference - Highest tenure is marked AS 42.01764 when the partner status is yes</li>
+</ol>
+
+<pre><code>##   Partner   tenure
+## 1      No 23.35787
+## 2     Yes 42.01764
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h3>9.Churn vs Tenure</h3>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Inference - As the tenure progresses customer who move out of the company are very less.
+<img src="assets/fig/unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" style="display: block; margin: auto;" /></li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h3>10.Contract Vs Tenure</h3>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Inference - As the tenure progresses customers migrates from monthly to Yearly contract.
+<img src="assets/fig/unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" style="display: block; margin: auto;" /></li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Phase 3 - Hypothesis testing</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>Hypothesis 1            :   Tenure is longer if the partner status is yes</h3>
+
+<ol>
+<li>Hypothesis test type    :   One Sample 1 sided t-test</li>
+<li>Alternate Hypothesis Ha :   Longer tenture if the partner status is yes</li>
+<li>Null Hypothesis         :   Partner status , plays no difference</li>
+<li>Since the P value is &lt; 0.05, reject H0 and significant difference is there when the partner status is yes</li>
+</ol>
+
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  ii$tenure
+## t = 17.272, df = 3401, p-value &lt; 2.2e-16
+## alternative hypothesis: true mean is greater than 35
+## 95 percent confidence interval:
+##  41.34913      Inf
+## sample estimates:
+## mean of x 
+##  42.01764
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h3>Hypothesis 2            :   Tenure vs Gender</h3>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Hypothesis test type    :   One Sample 2 sided t-test</li>
+<li>Alternate Hypothesis Ha :   Longer the tenture based on gender</li>
+<li>Null Hypossis           :   Gender makes no difference in Tenure</li>
+<li>Inference :  No difference in the tenture length because of the gender
+Since the P value is &gt; 0.05, Cannot reject H0 and so there is no difference in tenure becuase of the gender</li>
+</ol>
+
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  raw_data$tenure[raw_data$gender == &quot;Female&quot;] and raw_data$tenure[raw_data$gender == &quot;Male&quot;]
+## t = -0.4285, df = 7040.1, p-value = 0.6683
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -1.3981810  0.8965692
+## sample estimates:
+## mean of x mean of y 
+##  32.24455  32.49536
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h3>Hypothesis 3            :   Tenure is longer if the partner status is yes</h3>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Hypothesis test type    :   One Sample 2 sided t-test</li>
+<li>Alternate Hypothesis Ha :   There is a difference in tenture becuase the partner status is yes</li>
+<li>Null Hypthesis          :   No difference in tenure because the partner status is Yes</li>
+<li>Inference :  p  value is very less than 0.05 alpha,  so reject H0 and accept Ha. There is a significant difference in the tenure because of the partner status is yes</li>
+</ol>
+
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  raw_data$tenure[raw_data$Partner == &quot;Yes&quot;] and raw_data$tenure[raw_data$Partner == &quot;No&quot;]
+## t = 34.341, df = 6881.3, p-value &lt; 2.2e-16
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  17.59460 19.72494
+## sample estimates:
+## mean of x mean of y 
+##  42.01764  23.35787
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h3>Hypothesis 4            :   Average tenure of senior citizen is more than 30</h3>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Hypothesis test type    :   One Sample 1 sided t-test</li>
+<li>Alternate Hypothesis Ha :   Tenure of senior citizen is more than 30</li>
+<li>Null Hypossis           :   Tenure of senior citizen is more not than 30</li>
+<li>Inference :  Mean of tenure is greater when the partner status is yes. Since the P value is &lt; 0.05, reject H0 and significant difference is there when the partner status is yes</li>
+</ol>
+
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  sc$tenure
+## t = 46.517, df = 1141, p-value &lt; 2.2e-16
+## alternative hypothesis: true mean is greater than 0
+## 95 percent confidence interval:
+##  32.11767      Inf
+## sample estimates:
+## mean of x 
+##  33.29597
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h3>Hypothesis 5            :   Churn based on gender</h3>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Hypothesis test type    :   Chi square</li>
+<li>Alternate Hypothesis Ha :   Churn is based on gender</li>
+<li>Null Hypossis           :   Churn is not based on gender</li>
+<li>Inference :  P value &gt; Alpha 0.05, Cannot reject H0, accpt H0.
+Churn is not gender based</li>
+</ol>
+
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
+## 
+## data:  ta
+## X-squared = 0.48408, df = 1, p-value = 0.4866
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h3>Hypothesis 6            :   Churn based on Senior citizen status</h3>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Hypothesis test type    :   Chi square</li>
+<li>Alternate Hypothesis Ha :   Churn is based on gender</li>
+<li>Null Hypossis           :   Churn is not base don gender</li>
+<li>Inference :  P value &lt; Alpha 0.05,  reject H0, Accept  Ha  Churn based on senior citizen staus</li>
+</ol>
+
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
+## 
+## data:  snc
+## X-squared = 159.43, df = 1, p-value &lt; 2.2e-16
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h3>Hypothesis 7            :   Churn based on streaming status</h3>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Hypothesis test type    :   Chi square</li>
+<li>Alternate Hypothesis Ha :   Churn is based on streaming status</li>
+<li>Null Hypossis           :   Churn is not based on streaming status</li>
+<li>Inference :  P value &lt; Alpha 0.05,  reject H0, Accept  Ha.Churn based on streaming  staus</li>
+</ol>
+
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  tr
+## X-squared = 374.2, df = 2, p-value &lt; 2.2e-16
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h3>Hypothesis 8            :   Churn based on StreamingMovies status</h3>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Hypothesis test type    :   Chi square</li>
+<li>Alternate Hypothesis Ha :   Churn is based on StreamingMovies status</li>
+<li>Null Hypossis           :   Churn is not based on StreamingMovies status</li>
+<li>Inference :  P value &lt; Alpha 0.05,  reject H0, Accept  Ha.Churn based on StreamingMovies  staus</li>
+</ol>
+
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  tr1
+## X-squared = 375.66, df = 2, p-value &lt; 2.2e-16
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h3>Hypothesis 9            :   Monthly charges are varied based on gender</h3>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Hypothesis test type    :   One Sample 2 sided t-test</li>
+<li>Alternate Hypothesis Ha :   Monthly charges varied based on gender</li>
+<li>Null Hypossis           :   Monthly charges not varied based on gender</li>
+<li>Inference :  No differenc ein the tenture length because of the gender.Since the P value is &gt; 0.05,  cannot reject H0 and monthly charges are not varied based on gender so reject  Alternate hypothesis</li>
+</ol>
+
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  raw_data$MonthlyCharges[raw_data$gender == &quot;Female&quot;] and raw_data$MonthlyCharges[raw_data$gender == &quot;Male&quot;]
+## t = 1.2227, df = 7038.9, p-value = 0.2215
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.5289426  2.2824640
+## sample estimates:
+## mean of x mean of y 
+##  65.20424  64.32748
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-20" style="background:;">
+  <hgroup>
+    <h3>Hypothesis 10           :   Churn is more because of Internet Service</h3>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Alternate Hypothesis Ha :   Churn is based on Internet Service status</li>
+<li>Null Hypossis           :   Churn is not based on Internet Service status</li>
+<li>Hypothesis test type    :   Chi square</li>
+<li>Inference :  P value &lt; Alpha 0.05,  reject H0, Accept  Ha. Churn based on Internet Service  status</li>
+</ol>
+
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  tr11
+## X-squared = 732.31, df = 2, p-value &lt; 2.2e-16
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-21" style="background:;">
+  <hgroup>
+    <h2>END</h2>
+  </hgroup>
+  <article data-timings="">
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Phase 1 -- Transformation and Description of Data'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Phase 2 -- Exploratory Data Analysis'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='2.Churn by Gender'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='3.Churn by SeniorCitizen'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='4.Churn because of InternetService'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='5.Churn based on Contract type'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='6.Churn based on Dependent status'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='8.Average tenure of a customer who&#39;s status of Partner  yes'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='9.Churn vs Tenure'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='10.Contract Vs Tenure'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Phase 3 - Hypothesis testing'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Hypothesis 2            :   Tenure vs Gender'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='Hypothesis 3            :   Tenure is longer if the partner status is yes'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='Hypothesis 4            :   Average tenure of senior citizen is more than 30'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Hypothesis 5            :   Churn based on gender'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='Hypothesis 6            :   Churn based on Senior citizen status'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='Hypothesis 7            :   Churn based on streaming status'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='Hypothesis 8            :   Churn based on StreamingMovies status'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='Hypothesis 9            :   Monthly charges are varied based on gender'>
+         19
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=20 title='Hypothesis 10           :   Churn is more because of Internet Service'>
+         20
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=21 title='END'>
+         21
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  <script src="libraries/widgets/bootstrap/js/bootstrap.min.js"></script>
+<script src="libraries/widgets/bootstrap/js/bootbox.min.js"></script>
+<script src="libraries/widgets/quiz/js/jquery.quiz.js"></script>
+<script src="libraries/widgets/quiz/js/mustache.min.js"></script>
+<script src="libraries/widgets/quiz/js/quiz-app.js"></script>
+
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<script>  
+  $(function (){ 
+    $("#example").popover(); 
+    $("[rel='tooltip']").tooltip(); 
+  });  
+  </script>  
+   
+  </html>

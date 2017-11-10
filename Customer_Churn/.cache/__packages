@@ -1,0 +1,12 @@
+base
+plyr
+ggplot2
+plotly
+lattice
+BSDA
+proto
+gsubfn
+RSQLite
+sqldf
+devtools
+slidify
